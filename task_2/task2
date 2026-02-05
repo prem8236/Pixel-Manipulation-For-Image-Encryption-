@@ -1,0 +1,33 @@
+from PIL import Image
+
+def encrypt(img, key):
+    px = img.load()
+    w, h = img.size
+    for i in range(w):
+        for j in range(h):
+            r, g, b = px[i, j]
+            px[i, j] = (r ^ key, g ^ key, b ^ key)
+    return img
+
+print("1 Encrypt Image")
+print("2 Decrypt Image")
+
+ch = input("Enter choice: ")
+path = input("Enter image path: ")
+key = int(input("Enter key (0-255): "))
+
+img = Image.open(path).convert("RGB")
+
+if ch == "1":
+    encrypt(img, key)
+    img.save("encrypted.png")
+    print("Encrypted image saved as encrypted.png")
+
+elif ch == "2":
+    encrypt(img, key)
+    img.save("decrypted.png")
+    print("Decrypted image saved as decrypted.png")
+
+else:
+    print("Invalid choice")
+
